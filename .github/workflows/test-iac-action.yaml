@@ -12,11 +12,12 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # ratchet:actions/checkout@v4.2.2
         with:
           fetch-depth: 0  # Ensure we have git history for diff
+          ref: ${{ github.event.pull_request.head.sha }}  # Add this line to checkout PR head
+
       
       - name: Get changed files
         run: |
-          git checkout ${{ github.head_ref }}
-          # git fetch origin ${{ github.base_ref }}
+          # git checkout ${{ github.head_ref }}
           git -c core.quotepath=false diff -z --name-only origin/${{ github.base_ref }}...origin/${{ github.head_ref }} --diff-filter=ACM
 
       - name: Scan IaC
