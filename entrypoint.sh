@@ -7,6 +7,8 @@ exit_with_err() {
 }
 
 function run_orca_iac_scan() {
+  git config --global --add safe.directory "$PWD"
+
   cd "${GITHUB_WORKSPACE}" || exit_with_err "could not find GITHUB_WORKSPACE: ${GITHUB_WORKSPACE}"
   echo "Running Orca IaC scan:"
   echo orca-cli "${GLOBAL_FLAGS[@]}" iac scan "${SCAN_FLAGS[@]}"
