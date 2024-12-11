@@ -18,6 +18,7 @@ jobs:
       - name: Get changed files
         run: |
           # git checkout ${{ github.head_ref }}
+          printenv
           git -c core.quotepath=false diff -z --name-only origin/${{ github.base_ref }}...origin/${{ github.head_ref }} --diff-filter=ACM
 
       - name: Scan IaC
