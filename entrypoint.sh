@@ -12,8 +12,13 @@ function run_orca_iac_scan() {
   cd "${GITHUB_WORKSPACE}" || exit_with_err "could not find GITHUB_WORKSPACE: ${GITHUB_WORKSPACE}"
   echo "Running Orca IaC scan:"
   echo "$PWD"
-  echo "git rev-parse --abbrev-ref HEAD"
-  echo "git -c core.quotepath=false diff -z --name-only origin/main...origin/sagic-orca-patch-1 --diff-filter=ACM"
+  # Get the current branch name 
+  current_branch=$(git rev-parse --abbrev-ref HEAD)
+  echo "Current branch: $current_branch" 
+  # Get the list of changed files between two branches 
+  changed_files=$(git -c core.quotepath=false diff -z --name-only origin/main...origin/sagic-orca-patch-1 --diff-filter=ACM)
+  echo "Changed files:" 
+  echo "$changed_files"
   echo orca-cli "${GLOBAL_FLAGS[@]}" iac scan "${SCAN_FLAGS[@]}"
   orca-cli "${GLOBAL_FLAGS[@]}" iac scan "${SCAN_FLAGS[@]}"
   export ORCA_EXIT_CODE=$?
