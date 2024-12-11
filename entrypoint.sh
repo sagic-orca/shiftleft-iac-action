@@ -13,7 +13,7 @@ function run_orca_iac_scan() {
   echo "Running Orca IaC scan:"
   echo "$PWD"
   echo "git rev-parse --abbrev-ref HEAD"
-  echo "git -c core.quotepath=false diff -z --name-only origin/${{ github.base_ref }}...origin/${{ github.head_ref }} --diff-filter=ACM"
+  echo "git -c core.quotepath=false diff -z --name-only origin/main...origin/sagic-orca-patch-1 --diff-filter=ACM"
   echo orca-cli "${GLOBAL_FLAGS[@]}" iac scan "${SCAN_FLAGS[@]}"
   orca-cli "${GLOBAL_FLAGS[@]}" iac scan "${SCAN_FLAGS[@]}"
   export ORCA_EXIT_CODE=$?
